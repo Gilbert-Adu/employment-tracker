@@ -33,8 +33,8 @@ router.post("/", async (req, res) => {
 
 
     } catch (err) {
-
-        res.status(400).sendFile(path.join(__dirname, "/FormSubmissionError.html")).send({message: err.message})
+        console.log({message: err.message})
+        res.status(400).sendFile(path.join(__dirname, "/FormSubmissionError.html"))
 
     }
 
