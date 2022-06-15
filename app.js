@@ -5,7 +5,7 @@ const app = express();
 const mongoose = require("mongoose");
 const Application = require("./db/applicationDB");
 const bodyParser = require("body-parser");
-const port = 3000;
+
 
 
 //databases
@@ -36,6 +36,6 @@ app.get("/", (req, res) => {
 
 
 
-app.listen(port, () => {
+app.listen(process.env.PORT, () => {
     console.log("server listening")
 });
