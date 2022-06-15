@@ -10,7 +10,13 @@ const bodyParser = require("body-parser");
 
 //databases
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true}).catch(err => console.log(err.reason))
+mongoose.connect(process.env.DATABASE_URL,
+    { useNewUrlParser: true, useUnifiedTopology: true},
+    (err) => {
+        if (err) console.log(err)
+        else console.log("mongodb is connected!");
+    }
+    );
 const db = mongoose.connection
 db.on("error", (error) => console.error(error))
 db.once("open", () => console.log("connected to db!"))
