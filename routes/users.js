@@ -11,7 +11,7 @@ const path = require("path");
 router.get("/signup", (req, res) => {
 
 
-    res.status(201).sendFile(path.join("/Users/gilbertadu/Desktop/tracker2/employment-tracker/frontend", "/signup.html"));
+    res.status(201).sendFile(path.join(__dirname, "/signup.html"));
 
 
 
@@ -49,7 +49,7 @@ router.post("/signup", async (req, res) => {
 
 router.get("/login", (req, res) => {
 
-    res.status(201).sendFile(path.join("/Users/gilbertadu/Desktop/tracker2/employment-tracker/frontend", "/firstpage.html"));
+    res.status(201).sendFile(path.join(__dirname, "/firstpage.html"));
 
 });
 
@@ -73,7 +73,7 @@ router.post("/login", async (req, res) => {
 
     try {
         if (await bcrypt.compare(req.body.password, entry.password)) {
-            res.status(201).sendFile(path.join("/Users/gilbertadu/Desktop/tracker2/employment-tracker/frontend", "/index.html"));
+            res.status(201).sendFile(path.join(__dirname, "/index.html"));
 
 
         }else {
