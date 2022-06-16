@@ -55,6 +55,8 @@ router.get("/login", (req, res) => {
 
 router.post("/login", async (req, res) => {
 
+    //1. authenticate
+
     let entry;
 
     const cursor = User.find().cursor();
@@ -70,7 +72,7 @@ router.post("/login", async (req, res) => {
     if (entry == null) {
         return res.status(400).send("could not find user")
     }
-
+    //2. authorize (not implemented yet)
     try {
         if (await bcrypt.compare(req.body.password, entry.password)) {
             res.status(201).sendFile(path.join(__dirname, "/index.html"));
