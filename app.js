@@ -31,12 +31,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const applicationRouter = require("./routes/applications")
 app.use("/application", applicationRouter) 
 
+//signup route
+const signUpRouter = require("./routes/users");
+app.use("/user", signUpRouter);
+
 app.engine("html", require("ejs").renderFile);
 app.set("view engine", "html");
 //serving customer-side code
 app.get("/", (req, res) => {
     
-    res.sendFile(path.join(__dirname, "/frontend/index.html"));
+    res.sendFile(path.join(__dirname, "/frontend/firstpage.html"));
 
 });
 
