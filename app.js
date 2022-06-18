@@ -28,8 +28,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 //routes
-const applicationRouter = require("./routes/applications")
-app.use("/application", applicationRouter) 
 
 //signup route
 const signUpRouter = require("./routes/users");
