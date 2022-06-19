@@ -3,7 +3,6 @@ const path = require("path");
 const express = require('express');
 const app = express();
 const mongoose = require("mongoose");
-const Application = require("./db/applicationDB");
 const bodyParser = require("body-parser");
 
 

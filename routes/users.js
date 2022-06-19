@@ -11,6 +11,10 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 const bcrypt = require("bcrypt");
 
+
+let userToken;
+let usernameHolder;
+
 //login
 router.post("/login", async (req,res) => {
 
@@ -29,13 +33,14 @@ router.post("/login", async (req,res) => {
     if (entry == null) {
         return res.send("could not find user")
     }
-
     try {
         if (await bcrypt.compare(req.body.password, entry.person.password)) {
             const accessToken = generateAccessToken({username: entry.person.username});
             //save this user's access token in the DB.
             await User.updateOne({"person.username": req.body.username}, {$set: {"person.accessToken":accessToken}})
             //res.send({accessToken: accessToken})
+            usernameHolder = entry.person.username;
+
             res.sendFile(path.join(__dirname, "/index.html"))
             
         }else {
@@ -52,7 +57,6 @@ router.post("/login", async (req,res) => {
 router.get("/submitposts", (req, res) => {
     res.sendFile(path.join(__dirname, "/index.html"));
 });
-let userToken;
 //make a post
 router.post("/submitposts", async (req, res) => {
 
@@ -103,7 +107,7 @@ router.post("/submitposts", async (req, res) => {
 router.get("/getposts", async (req,res) => {
     //console.log(req.body)
     let entry;
-    const doc = await User.find({"person.accessToken": userToken});
+    const doc = await User.find({"person.username": usernameHolder});
     const { person } = doc[0]
     entry = person;
 
@@ -121,7 +125,6 @@ router.get("/signup", (req, res) => {
 router.post("/signup", async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    console.log(hashedPassword)
 
     try {
         const Person = {
