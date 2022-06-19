@@ -31,7 +31,7 @@ router.post("/login", async (req,res) => {
     }
 
     if (entry == null) {
-        return res.send("could not find user")
+        return res.sendFile(path.join(__dirname, "/NonUser.html"))
     }
     try {
         if (await bcrypt.compare(req.body.password, entry.person.password)) {
